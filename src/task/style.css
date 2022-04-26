@@ -33,6 +33,7 @@
 .trashIcon{
     font-size: 15px;
     transition: .2s;
+    cursor: pointer;
 }
 
 .trashIcon:hover{

@@ -1,12 +1,12 @@
 import './style.css';
 import { BsPlus } from 'react-icons/bs';
-
 import { useState } from 'react';
 import Task from '../task/index.js';
 
 
 const MainPage = () => {
-    const[input, setInput] = useState('');
+    const [input, setInput] = useState('');
+    const [tasks, setTasks] = useState([]);
 
     const handleChange = (e) => {
         setInput(e.target.value);
@@ -15,14 +15,18 @@ const MainPage = () => {
 
     const handleSubmit = () => {
         if(input !== ''){
-            const tasks = document.getElementsByClassName('tasks');
-            tasks[0].appendChild(<Task task={input}/>); //Como fazer isso funcionar?
-            
+            setTasks(prevTasks => [...prevTasks, input]);
             setInput('');
         }else{
             alert('Please, fill with a task');
         }
 
+    }
+
+    const handleDelete = (deletedTask) => {
+        const filteredTask = tasks.filter(task => task !== deletedTask);
+        setTasks(filteredTask);
+        
     }
 
     
@@ -34,7 +38,9 @@ const MainPage = () => {
               <h1>Tarefas</h1>
           </div>
           <div className='tasks'>
-                
+            {tasks.map(task => {
+                return <Task task={task} delete={() => handleDelete(task)} />
+            })}
           </div>
           <div className='addTask'>
                 <div className='button' onClick={handleSubmit}>
@@ -48,5 +54,6 @@ const MainPage = () => {
     </div>
   );
 }
+
 
 export default MainPage;
