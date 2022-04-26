@@ -8,6 +8,7 @@ const MainPage = () => {
     const [input, setInput] = useState('');
     const [tasks, setTasks] = useState([]);
 
+
     const handleChange = (e) => {
         setInput(e.target.value);
     }
@@ -54,6 +55,8 @@ const MainPage = () => {
     </div>
   );
 }
+
+
 
 
 export default MainPage;

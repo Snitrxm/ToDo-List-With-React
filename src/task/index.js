@@ -1,35 +1,30 @@
 import { BiTrashAlt } from 'react-icons/bi';
+import { useRef } from 'react';
 
 import './style.css'
 
-const handleDone = (input, h3, p) => {
-    if(input.checked){
-        h3.style.textDecoration = 'line-through';
-        p.style.textDecoration = 'line-through';
-    }else{
-        h3.style.textDecoration = 'none';
-        p.style.textDecoration = 'none';
+const Task = (props) => {
+    const inputButton = useRef(null);
+    const taskTitle = useRef(null);
+    const subtitle = useRef(null);
+
+    const handleDone = () => {
+        if(inputButton.current.checked === true){
+            taskTitle.current.style.textDecoration = "line-through";
+            subtitle.current.style.textDecoration = "line-through";
+        }else{
+            taskTitle.current.style.textDecoration = "none";
+            subtitle.current.style.textDecoration = "none";
+        }
     }
-}
 
-
-const tasks = document.getElementsByClassName('tasks');
-
-const handleDelete = (div) => {
-    tasks[0].removeChild(div);
-}
-
-
-
-
-const task = (props) => {
      return (
         <div className="task">
             <div className="taskContainer">
-                <input type='checkbox' className='input' onChange={() => handleDone(input[0],h3[0], p[0])}></input>
+                <input type='checkbox' className='input' onChange={handleDone} ref={inputButton}></input>
                 <div className="texts">
-                    <h3 className='h3'>{props.task}</h3>
-                    <p className='p'>Tarefas</p>
+                    <h3 className='h3' ref={taskTitle}>{props.task}</h3>
+                    <p className='p' ref={subtitle}>Tarefas</p>
                 </div>
             </div>
             <div className="trashIcon">
@@ -39,9 +34,5 @@ const task = (props) => {
     );
 }
 
-const input = document.getElementsByClassName('input');
-const h3 = document.getElementsByClassName('h3');
-const p = document.getElementsByClassName('p');
-const taskContainer = document.getElementsByClassName('taskContainer');
 
-export default task;
+export default Task;
